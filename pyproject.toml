@@ -1,0 +1,11 @@
+[project]
+name = "automation-minutes"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "faster-whisper>=1.2.1",
+    "huggingface-hub>=1.1.5",
+    "mlx-lm>=0.0.3",
+]
