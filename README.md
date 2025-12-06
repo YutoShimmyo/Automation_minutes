@@ -1,15 +1,19 @@
 # Meeting Minutes Automation
 
-This tool automates the transcription and summarization of meeting audio files (m4a, mp3, etc.) using local AI models on your Mac.
+This tool automates the transcription and summarization of meeting audio/video files using AI. It supports fast local execution on Mac (Apple Silicon) and remote execution on a GPU cluster (Slurm).
 
 ## Features
-- **Transcription**: Uses `faster-whisper` (`small` model) for fast, local speech-to-text.
-- **Summarization**: Uses `mlx-lm` (Qwen2.5-7B) for generating meeting minutes (Optional).
-- **Privacy**: Runs entirely on your Mac (Apple Silicon optimized).
+- **Transcription**: Uses `faster-whisper` (`small` model) with optimized settings (greedy search, VAD) for high speed.
+- **Summarization**: Uses `mlx-lm` (Qwen2.5-7B) to generate structured minutes (Optional).
+- **Format Support**: Supports `.m4a`, `.mp3`, `.mp4` (video), etc.
+- **Dual Mode**:
+    - **Local**: Runs entirely on your Mac.
+    - **Remote**: Offloads processing to a GPU server (e.g., NAIST cc21) via Slurm.
 
 ## Prerequisites
 - **uv**: For Python dependency management.
 - **ffmpeg**: For audio processing.
+- **SSH Access** (for Remote Mode): Password-less SSH access to the remote server.
 
 ## Installation
 
@@ -21,20 +25,35 @@ uv sync
 
 ## Usage
 
-1. **Prepare Audio**: Place your audio files (e.g., `.m4a`) in the `input/` directory.
+### 1. Local Execution (Mac)
+Best for quick transcriptions or when you want to run everything on your own machine.
 
-2. **Run Transcription** (Fast, Text Only):
-   ```bash
-   uv run main.py input/your_audio.m4a
-   ```
-   This will generate a raw transcript in `output/your_audio.txt`.
+**Transcription Only (Fastest):**
+```bash
+uv run main.py input/your_file.mp4
+```
+*Generates `output/your_file.txt`.*
 
-3. **Run with Summarization** (Optional):
-   ```bash
-   uv run main.py input/your_audio.m4a --summarize
-   ```
-   *Note: This requires downloading a large LLM (~4-5GB) on the first run and requires sufficient RAM/Disk space.*
+**Transcription + Summarization:**
+```bash
+uv run main.py input/your_file.mp4 --summarize
+```
+*Generates `output/your_file_minutes.md`. Requires downloading the LLM (~4GB) on first run.*
+
+### 2. Remote Execution (Slurm)
+Best for large files or batch processing on a GPU server.
+
+```bash
+python deploy.py input/your_file.mp4 <user>@cc21dev0
+```
+*(Replace `<user>` with your username)*
+
+**What this does:**
+1.  Archives your project code.
+2.  Transfers code and input file to the server.
+3.  Submits a Slurm job (`gpu_short` partition).
+4.  Logs and results will be stored in `/work/<user>/Automation_minutes_Job/` on the server.
 
 ## Output
 - `output/filename.txt`: Raw transcription text.
-- `output/filename_minutes.md`: Structured meeting minutes (Action Items, Key Points).
+- `output/filename_minutes.md`: Structured meeting minutes (if summarization is enabled).

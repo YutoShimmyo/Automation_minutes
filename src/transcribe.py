@@ -18,7 +18,8 @@ def transcribe_audio(file_path, model_size="small", device="cpu", compute_type="
     model = WhisperModel(model_size, device=device, compute_type=compute_type)
 
     print(f"Transcribing {file_path}...")
-    segments, info = model.transcribe(file_path, beam_size=5)
+    # Optimization: beam_size=1 (greedy search) is faster. vad_filter=True skips silence.
+    segments, info = model.transcribe(file_path, beam_size=1, vad_filter=True)
 
     print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
 

@@ -7,7 +7,7 @@ from src.summarize import summarize_text
 
 def main():
     parser = argparse.ArgumentParser(description="Automate meeting minutes from audio.")
-    parser.add_argument("audio_file", help="Path to the input audio file (m4a, mp3, etc.)")
+    parser.add_argument("audio_file", help="Path to the input file (m4a, mp3, mp4, etc.)")
     parser.add_argument("--summarize", action="store_true", help="Enable summarization (requires downloading LLM)")
     args = parser.parse_args()
 
