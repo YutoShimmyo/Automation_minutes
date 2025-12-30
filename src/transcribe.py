@@ -23,14 +23,14 @@ def transcribe_audio(file_path, model_size="small", device="cpu", compute_type="
 
     print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
 
-    transcript_parts = []
+    full_transcript = ""
+
     for segment in segments:
-        # Format: Text only (no timestamps)
-        line = segment.text
-        print(line)
-        transcript_parts.append(line)
-    
-    full_transcript = "\n".join(transcript_parts)
+        text = segment.text.strip()
+        print(text)
+        # Simply append with newline as requested for LLM input
+        full_transcript += text + "\n"
+
     
     # Explicitly delete model to free up RAM
     del model

@@ -23,22 +23,22 @@ Initialize the environment and install dependencies:
 uv sync
 ```
 
-## Usage
-
 ### 1. Local Execution (Mac)
-Best for quick transcriptions or when you want to run everything on your own machine.
-
 **Transcription Only (Fastest):**
 ```bash
 uv run main.py input/your_file.mp4
 ```
-*Generates `output/your_file.txt`.*
+*Generates `output/transcripts/your_file.txt`.*
 
-**Transcription + Summarization:**
-```bash
-uv run main.py input/your_file.mp4 --summarize
-```
-*Generates `output/your_file_minutes.md`. Requires downloading the LLM (~4GB) on first run.*
+### 2. Gemini Automation (Recommended)
+Automatically transcribe and summarize using Gemini 1.5 Flash (Free Tier).
+
+1.  Copy `.env.template` to `.env` and set your `GEMINI_API_KEY`.
+2.  Run:
+    ```bash
+    uv run main.py input/your_file.mp4 --use-gemini
+    ```
+*Generates `output/minutes/your_file_minutes.md`.*
 
 ### 2. Remote Execution (Slurm)
 Best for large files or batch processing on a GPU server.

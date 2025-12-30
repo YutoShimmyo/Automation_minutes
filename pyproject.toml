@@ -6,6 +6,8 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "faster-whisper>=1.2.1",
+    "google-genai>=1.56.0",
     "huggingface-hub>=1.1.5",
     "mlx-lm>=0.0.3",
+    "python-dotenv>=1.2.1",
 ]
