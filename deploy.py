@@ -32,7 +32,7 @@ def main():
     # Exclude output, input (except the target file), .git, etc.
     # We'll just tar specific files/folders.
     archive_name = "project_code.tar.gz"
-    run_command(f"tar -czf {archive_name} src/ main.py scripts/ pyproject.toml uv.lock README.md")
+    run_command(f"tar -czf {archive_name} src/ main.py scripts/ pyproject.toml uv.lock README.md config.yaml .env.template")
 
     print(f"\n=== Step 2: Transferring Files to {remote_host} ===")
     # Create remote directory

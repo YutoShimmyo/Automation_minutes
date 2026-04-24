@@ -1,0 +1,86 @@
+# ============================================================
+# Meeting Minutes Automation - Default Configuration
+# CLI options always override values defined here.
+# ============================================================
+
+# profile: fast | standard | quality
+#   Used to auto-select ASR preset when asr.preset is "auto".
+profile: standard
+
+# language: auto | ja | en
+#   auto = Whisper detects the language from the audio.
+#   Specify "ja" or "en" to force a language and skip detection.
+language: auto
+
+# ────────────────────────────────────────────────────────────
+# ASR (Speech-to-Text) settings
+# ────────────────────────────────────────────────────────────
+asr:
+  # preset: auto | A | B | C | D
+  #   auto  – selected from profile + language (see below)
+  #   A     – English · High Quality  (Parakeet TDT → Whisper large-v3)
+  #   B     – English · Standard      (Whisper large-v3-turbo)
+  #   C     – Multilingual · High Quality  (Whisper large-v3)
+  #   D     – Multilingual · Standard      (Whisper large-v3-turbo)  ← default
+  #
+  # preset auto resolution table:
+  #   profile=quality  + language=en   → A
+  #   profile=standard + language=en   → B
+  #   profile=quality  + language=ja   → C
+  #   profile=standard + language=ja   → D
+  #   profile=*        + language=auto → C (quality) / D (standard/fast)
+  preset: auto
+
+  # backend: (empty = use preset)  faster_whisper | parakeet
+  #   Override to force a specific backend, ignoring preset.
+  backend: ""
+
+  # model: (empty = use preset default)
+  #   Override to force a specific model, e.g. "large-v3", "medium", "small".
+  model: ""
+
+  # device: (empty = auto-detect)  cpu | cuda | mps
+  device: ""
+
+# ────────────────────────────────────────────────────────────
+# Minutes (Summarization) settings
+# ────────────────────────────────────────────────────────────
+minutes:
+  # backend: none | api | local
+  #   none  – skip summarization (transcription only)
+  #   api   – use a cloud API (see minutes.api below)
+  #   local – use a local LLM (see minutes.local below)
+  backend: none
+
+  api:
+    # provider: gemini
+    provider: gemini
+    # Gemini model name
+    # Available (2026-04): gemini-2.5-flash / gemini-2.5-flash-lite / gemini-2.0-flash
+    model: gemini-2.5-flash
+
+  # output_language: ja | en | auto
+  #   ja   – always output minutes in Japanese (default)
+  #   en   – always output in English
+  #   auto – follow the detected audio language
+  output_language: ja
+
+  local:
+    # runtime: mlx-vlm | mlx-lm | ollama
+    #   mlx-vlm – for multimodal models (Gemma 4 E4B, etc.)  ← recommended
+    #   mlx-lm  – for text-only models (Qwen2.5, Gemma 3, etc.)
+    runtime: mlx-vlm
+
+    # model_path for mlx-vlm/mlx-lm: HuggingFace repo ID or local path under models/
+    # Place downloaded models in the models/ directory.
+    # Example local path: models/gemma-4-e4b-it-4bit
+    model_path: "mlx-community/gemma-4-e4b-it-4bit"
+
+    # Fallback text-only model (for mlx-lm runtime)
+    # model_path: "mlx-community/Qwen2.5-7B-Instruct-4bit"
+
+    # ollama_model: model name registered in your Ollama server
+    ollama_model: "gemma2:9b"
+
+    # ollama_url: URL of the Ollama REST API server
+    ollama_url: "http://localhost:11434"
