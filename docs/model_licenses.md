@@ -1,99 +1,149 @@
-# モデルライセンス一覧
+# モデル・ライブラリ ライセンス一覧
 
-このツールは以下のモデルを利用できます。  
-**モデルはユーザー自身がダウンロード・利用する責任を負います。**  
-各モデルのライセンスを必ず確認した上でご利用ください。
+このツールが使用するモデルおよびライブラリのライセンス情報です。
+
+**重要:** このツール自体は MIT ライセンスですが、**使用するモデルはそれぞれ独自のライセンスに従います。**  
+商用利用・再配布を行う前に必ず各ライセンスの原文をご確認ください。
 
 ---
 
-## ASR (音声認識) モデル
+## このツール自体のライセンス
 
-### faster-whisper / Whisper
+| 項目 | 内容 |
+|-----|------|
+| ライセンス | MIT |
+| 著作権者 | Yuto Shimmyo (2025-2026) |
+| ライセンス全文 | `LICENSE` ファイルを参照 |
+
+---
+
+## ASR（音声認識）モデル
+
+### Whisper（OpenAI）
 
 | モデル | プリセット | ライセンス | 配布元 |
 |--------|-----------|-----------|--------|
-| Whisper large-v3 | C (Multilingual HQ) | MIT | [openai/whisper-large-v3](https://huggingface.co/openai/whisper-large-v3) |
-| Whisper large-v3-turbo | B/D (Standard) | MIT | [openai/whisper-large-v3-turbo](https://huggingface.co/openai/whisper-large-v3-turbo) |
-| Whisper medium | B/D (fallback) | MIT | [openai/whisper-medium](https://huggingface.co/openai/whisper-medium) |
-| Whisper small | B/D (fallback) | MIT | [openai/whisper-small](https://huggingface.co/openai/whisper-small) |
+| whisper-large-v3 | C（高品質） | **MIT** | [openai/whisper-large-v3](https://huggingface.co/openai/whisper-large-v3) |
+| whisper-large-v3-turbo | B/D（標準） | **MIT** | [openai/whisper-large-v3-turbo](https://huggingface.co/openai/whisper-large-v3-turbo) |
+| whisper-medium | B/D（fallback）| **MIT** | [openai/whisper-medium](https://huggingface.co/openai/whisper-medium) |
+| whisper-small | B/D（fallback）| **MIT** | [openai/whisper-small](https://huggingface.co/openai/whisper-small) |
 
 - ライセンス全文: https://github.com/openai/whisper/blob/main/LICENSE
-
-faster-whisper は CTranslate2 を使って Whisper を高速化したラッパーです。  
-- リポジトリ: https://github.com/SYSTRAN/faster-whisper  
-- ライセンス: MIT
-
-### NVIDIA Parakeet (プリセット A)
-
-| モデル | ライセンス | 配布元 |
-|--------|-----------|--------|
-| parakeet-tdt-0.6b-v2 | CC-BY-4.0 | [nvidia/parakeet-tdt-0.6b-v2](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2) |
-
-**注意事項:**  
-- Parakeet は **英語専用** です。日本語には対応していません。
-- CC-BY-4.0 ライセンスにより、商用利用・改変が可能ですが帰属表示が必要です。
-- 利用規約: https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2
+- **MIT のため商用利用・改変・再配布が可能**（著作権表示を保持すること）
 
 ---
 
-## 議事録生成 (LLM) モデル
-
-### Google Gemini (API)
+### NVIDIA Parakeet TDT（プリセット A）
 
 | モデル | ライセンス | 配布元 |
 |--------|-----------|--------|
-| gemini-2.5-flash | Google Terms of Service | [Google AI Studio](https://aistudio.google.com/) |
-| gemini-2.5-flash-lite | Google Terms of Service | [Google AI Studio](https://aistudio.google.com/) |
-| gemini-2.0-flash | Google Terms of Service | [Google AI Studio](https://aistudio.google.com/) |
+| parakeet-tdt-0.6b-v2 | **CC-BY-4.0** | [nvidia/parakeet-tdt-0.6b-v2](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2) |
 
-**注意事項:**  
-- 商用利用の可否は Google の利用規約に従います。
-- 無料枠の制限に注意してください。
-- `gemini-1.5-flash` は現行 API では利用不可（2026-04 時点）。
-- 利用規約: https://ai.google.dev/gemini-api/terms
+**CC-BY-4.0 の主な条件:**
 
-### Gemma 4 E4B (mlx-vlm) ← デフォルト推奨
+| 行為 | 条件 |
+|-----|------|
+| 推論（個人・研究利用） | 自由に使用可（帰属表示不要） |
+| 成果物の公開・論文掲載 | NVIDIA への帰属表示が必要 |
+| モデルの再配布・改変 | 帰属表示 + CC-BY-4.0 ライセンス表示が必要 |
+| 商用利用 | 可（帰属表示が必要） |
+
+**帰属表示の例（再配布・公開時）:**
+```
+This product uses NVIDIA Parakeet TDT 0.6B v2.
+Model: https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+```
+
+- Parakeet は**英語専用**。日本語音声には使用不可。
+- ライセンス全文: https://creativecommons.org/licenses/by/4.0/
+
+---
+
+## 議事録生成（LLM）モデル
+
+### Gemma 4 E4B（デフォルト推奨・mlx-vlm）
 
 | モデル | ライセンス | 配布元 |
 |--------|-----------|--------|
-| gemma-4-e4b-it (4bit) | **Apache 2.0** | [mlx-community/gemma-4-e4b-it-4bit](https://huggingface.co/mlx-community/gemma-4-e4b-it-4bit) |
+| gemma-4-e4b-it（4bit量子化） | **Apache 2.0** | [mlx-community/gemma-4-e4b-it-4bit](https://huggingface.co/mlx-community/gemma-4-e4b-it-4bit) |
 
-**注意事項:**  
-- Apache 2.0 ライセンスのため**商用利用・改変が可能**です。
-- マルチモーダルモデルですが、このツールではテキスト専用で使用します。
-- `mlx-vlm` ランタイムが必要（`mlx-lm` では動きません）。
+- Gemma 4 は Google が 2026年3月に **Apache 2.0 で公開**（Gemma 1/2/3 の独自ライセンスから変更）
+- **商用利用・改変・再配布が可能**（著作権表示・ライセンス表示を保持すること）
+- モデルを再配布する場合は `NOTICE` ファイルの保持が必要
 - 元モデル: https://huggingface.co/google/gemma-4-e4b-it
 - ライセンス全文: https://ai.google.dev/gemma/docs/gemma_4_license
 
-### Gemma 3 (mlx-lm / ollama)
+---
+
+### Qwen 2.5（mlx-lm）
 
 | モデル | ライセンス | 配布元 |
 |--------|-----------|--------|
-| gemma-3-4b-it (4bit) | Gemma Terms of Use | [mlx-community/gemma-3-4b-it-4bit](https://huggingface.co/mlx-community/gemma-3-4b-it-4bit) |
+| Qwen2.5-7B-Instruct（4bit）| **Apache 2.0** | [mlx-community/Qwen2.5-7B-Instruct-4bit](https://huggingface.co/mlx-community/Qwen2.5-7B-Instruct-4bit) |
 
-**注意事項:**  
-- Google の Gemma Terms of Use に従います（商用利用には条件あり）。
-- 利用規約: https://ai.google.dev/gemma/terms
+- **商用利用・改変・再配布が可能**（著作権表示・ライセンス表示を保持すること）
+- ライセンス全文: https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/LICENSE
 
-### Qwen 2.5 (mlx-lm)
+---
 
-| モデル | ライセンス | 配布元 |
-|--------|-----------|--------|
-| Qwen2.5-7B-Instruct (4bit) | Apache 2.0 | [mlx-community/Qwen2.5-7B-Instruct-4bit](https://huggingface.co/mlx-community/Qwen2.5-7B-Instruct-4bit) |
-
-**注意事項:**  
-- Apache 2.0 ライセンスのため商用利用・改変が可能です。
-
-### Gemma 2 (ollama)
+### Gemma 3（mlx-lm / Ollama、代替モデル）
 
 | モデル | ライセンス | 配布元 |
 |--------|-----------|--------|
-| gemma2:9b | Gemma Terms of Use | [Ollama library](https://ollama.com/library/gemma2) |
+| gemma-3-4b-it | **Gemma Terms of Use** | [mlx-community/gemma-3-4b-it-4bit](https://huggingface.co/mlx-community/gemma-3-4b-it-4bit) |
+| gemma2:9b（Ollama）| **Gemma Terms of Use** | [Ollama library](https://ollama.com/library/gemma2) |
+
+- Gemma 1/2/3 は Google の独自ライセンス（Gemma Terms of Use）に従う
+- **商用利用には条件あり**（月間アクティブユーザー 2,000万人未満は原則無料）
+- ライセンス全文: https://ai.google.dev/gemma/terms
+
+---
+
+### Google Gemini（API）
+
+| モデル | ライセンス形態 | 配布元 |
+|--------|------------|--------|
+| gemini-2.5-flash | Google API Terms of Service | [Google AI Studio](https://aistudio.google.com/) |
+| gemini-2.5-flash-lite | Google API Terms of Service | [Google AI Studio](https://aistudio.google.com/) |
+| gemini-2.0-flash | Google API Terms of Service | [Google AI Studio](https://aistudio.google.com/) |
+
+- モデル自体は配布されない（API 経由での利用のみ）
+- 利用規約: https://ai.google.dev/gemini-api/terms
+- 無料枠の範囲と商用利用の条件を事前に確認すること
+
+---
+
+## Python ライブラリのライセンス
+
+このツールが依存するライブラリのライセンスです。
+
+| ライブラリ | ライセンス | 用途 |
+|-----------|-----------|------|
+| faster-whisper | **MIT** | Whisper 音声認識バックエンド |
+| mlx-lm | **MIT** | Apple Silicon 向けテキスト LLM 推論 |
+| mlx-vlm | **MIT** | Apple Silicon 向けマルチモーダル LLM 推論 |
+| google-genai | **Apache 2.0** | Gemini API クライアント |
+| huggingface-hub | **Apache 2.0** | モデルのダウンロード管理 |
+| python-dotenv | **BSD 3-Clause** | 環境変数（.env）読み込み |
+| pyyaml | **MIT** | YAML 設定ファイル読み込み |
+
+---
+
+## コンプライアンスチェックリスト
+
+このツールを使用する際に確認すること：
+
+- [ ] **モデルを再配布しない**（`models/` は `.gitignore` で除外済み）
+- [ ] **Parakeet を公開成果物に使う場合**は NVIDIA への帰属表示を追加する
+- [ ] **Gemma 3/Gemma 2** を商用利用する場合は Google の利用規約を確認する
+- [ ] **Gemini API** を商用利用する場合は Google API Terms of Service を確認する
+- [ ] **Apache 2.0 モデル（Gemma 4, Qwen2.5）** を改変・再配布する場合は著作権表示を保持する
 
 ---
 
 ## 免責事項
 
 - このツールはモデル本体を同梱・配布しません。
-- ユーザーは各モデルのライセンスを確認し、自己責任で利用してください。
-- 商用利用の可否は必ず各モデルの公式ライセンスを参照してください。
+- モデルのダウンロード・使用はユーザーの責任で行ってください。
+- ライセンス条件は変更される場合があります。利用前に必ず原文を確認してください。

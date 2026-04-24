@@ -11,6 +11,7 @@ __pycache__/
 output/
 input/*
 !input/.gitkeep
+REPORT.md
 
 # Local models (download separately; see models/README.md)
 models/*
